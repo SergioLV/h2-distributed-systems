@@ -10,12 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SalesService {
-
     @Autowired
     private KafkaTemplate<String, Sale> salesKafkaTemplate;
-
     @Transactional
-    public void send(Sale sale) throws DatabaseException{
+    public void send(Sale sale) {
         sendToTopic(sale);
     }
 

@@ -1,6 +1,8 @@
 package com.gremio.receiver.service.api.controller;
 
 import com.gremio.receiver.business.Constants;
+import com.gremio.receiver.business.FugitivesCartsService;
+import com.gremio.receiver.business.MembersService;
 import com.gremio.receiver.business.SalesService;
 import com.gremio.receiver.dto.FugitiveCartRequest;
 import com.gremio.receiver.dto.MemberRequest;
@@ -25,14 +27,15 @@ import java.util.Calendar;
 public class ReceiverController {
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(ReceiverController.class);
 
-    @Autowired
-    private KafkaTemplate<String, Member> membersKafkaTemplate;
-
-    @Autowired
-    private KafkaTemplate<String, FugitiveCart> fugitiveCartsKafkaTemplate;
 
     @Autowired
     private SalesService salesService;
+
+    @Autowired
+    private MembersService membersService;
+
+    @Autowired
+    private FugitivesCartsService fugitivesCartsService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -45,19 +48,19 @@ public class ReceiverController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(new DefaultResponse("New Sale added!", Calendar.getInstance().getTimeInMillis()));
     }
 
-//    @PostMapping(value="/member")
-//    public ResponseEntity<DefaultResponse> members(@RequestBody @Valid MemberRequest memberRequest){
-////        membersKafkaTemplate.send("new-members", memberRequest);
-//        LOGGER.info("New Member added. " + memberRequest.getEmail());
-//        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new DefaultResponse("New Member added!", Calendar.getInstance().getTimeInMillis()));
-//    }
-//
-//    @PostMapping(value="fugitive-cart")
-//    public ResponseEntity<DefaultResponse> fugitiveCart(@RequestBody @Valid FugitiveCartRequest fugitiveCartRequest){
-////        fugitiveCartsKafkaTemplate.send("location", fugitiveCartRequest);
-//        LOGGER.info("New Fugitive Cart Added. " + fugitiveCartRequest.getLatitude());
-//        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new DefaultResponse("New Fugitive Cart added", Calendar.getInstance().getTimeInMillis()));
-//    }
+    @PostMapping(value="/member")
+    public ResponseEntity<DefaultResponse> members(@RequestBody @Valid MemberRequest request){
+        Member member = modelMapper.map(request, Member.class);
+        membersService.send(member);
+        LOGGER.info("New Member added. " + request.getEmail());
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new DefaultResponse("New Member added!", Calendar.getInstance().getTimeInMillis()));
+    }
 
-
+    @PostMapping(value="fugitive-cart")
+    public ResponseEntity<DefaultResponse> fugitiveCart(@RequestBody @Valid FugitiveCartRequest request){
+        FugitiveCart fugitiveCart = modelMapper.map(request, FugitiveCart.class);
+        fugitivesCartsService.send(fugitiveCart);
+        LOGGER.info("New Fugitive Cart Added. " + request.getLatitude() + " " + request.getLongitude());
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new DefaultResponse("New Fugitive Cart added", Calendar.getInstance().getTimeInMillis()));
+    }
 }
