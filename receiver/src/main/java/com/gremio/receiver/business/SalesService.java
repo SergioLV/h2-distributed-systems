@@ -1,6 +1,5 @@
 package com.gremio.receiver.business;
 
-import com.gremio.receiver.dao.SaleDAO;
 import com.gremio.receiver.exceptions.DatabaseException;
 import com.gremio.receiver.model.Sale;
 import org.springframework.beans.factory.annotation.Autowired;
