@@ -1,0 +1,85 @@
+{
+	"info": {
+		"_postman_id": "365bab6a-b395-4eb0-a083-74cdcd1aefd3",
+		"name": "Gremio Sopaipilleros",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23438496"
+	},
+	"item": [
+		{
+			"name": "receiver",
+			"item": [
+				{
+					"name": "New Sale",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"client\":\"Sergio\",\r\n    \"amount\": \"123\",\r\n    \"date\": \"10/20/2011\",\r\n    \"remainingStock\": \"120\",\r\n    \"latitude\": 105345,\r\n    \"longitude\": 2345345340\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/v1/add/sale",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"add",
+								"sale"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Member",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Sergio\",\r\n    \"lastName\":\"Lagos\",\r\n    \"id\":\"199860631\",\r\n    \"email\":\"sergio.lagoss@mail.udp.cl\",\r\n    \"cartPlate\":\"d\",\r\n    \"isPremium\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/v1/add/member",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"add",
+								"member"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
