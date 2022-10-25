@@ -15,13 +15,9 @@ public class SalesService {
     @Autowired
     private KafkaTemplate<String, Sale> salesKafkaTemplate;
 
-    @Autowired
-    private SaleDAO saleDAO;
-
     @Transactional
     public void send(Sale sale) throws DatabaseException{
         sendToTopic(sale);
-        saleDAO.save(sale);
     }
 
     private void sendToTopic(Sale sale){

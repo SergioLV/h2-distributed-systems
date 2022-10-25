@@ -13,7 +13,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootConfiguration
 @EnableConfigurationProperties
-//@SpringBootApplication(scanBasePackages = { "com.gremio.receiver","com.gremio.receiver.dao" })
 @SpringBootApplication
 public class ReceiverApplication {
 

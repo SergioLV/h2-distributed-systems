@@ -8,7 +8,6 @@ import org.springframework.kafka.config.TopicBuilder;
 
 @Configuration
 public class KafkaTopicConfig {
-
     @Bean
     public NewTopic salesTopic() {
         return TopicBuilder.name(Constants.KAFKA_SALES_TOPIC).build();
