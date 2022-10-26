@@ -3,12 +3,13 @@ package com.gremio.receiver.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 public class MemberRequest {
     @NotBlank(message = "Name is Mandatory")
-    private String name;
+    private String memberName;
     @NotBlank(message = "Last Name is Mandatory")
-    private String lastName;
+    private String memberLastName;
     @NotNull(message = "Id is Mandatory")
     private Long id;
     @Email
@@ -16,23 +17,24 @@ public class MemberRequest {
     private String email;
     @NotBlank(message = "Plate is Mandatory")
     private String cartPlate;
-    @NotNull(message = "isPremium is Mandatory")
-    private boolean isPremium;
+    @NotNull(message = "Member type is Mandatory")
+    @Pattern(regexp = "premium|conventional", flags = Pattern.Flag.CASE_INSENSITIVE)
+    private String memberType;
 
-    public String getName() {
-        return name;
+    public String getMemberName() {
+        return memberName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getMemberLastName() {
+        return memberLastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setMemberLastName(String memberLastName) {
+        this.memberLastName = memberLastName;
     }
 
     public Long getId() {
@@ -59,11 +61,11 @@ public class MemberRequest {
         this.cartPlate = cartPlate;
     }
 
-    public boolean isPremium() {
-        return isPremium;
+    public String getMemberType() {
+        return memberType;
     }
 
-    public void setPremium(boolean premium) {
-        isPremium = premium;
+    public void setMemberType(String memberType) {
+        this.memberType = memberType;
     }
 }

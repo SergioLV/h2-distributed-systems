@@ -2,27 +2,27 @@ package com.gremio.receiver.model;
 
 public class Member {
 
-    private String name;
-    private String lastName;
+    private String memberName;
+    private String memberLastName;
     private Long id;
     private String email;
     private String cartPlate;
-    private boolean isPremium;
+    private String memberType;
 
-    public String getName() {
-        return name;
+    public String getMemberName() {
+        return memberName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getMemberLastName() {
+        return memberLastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setMemberLastName(String memberLastName) {
+        this.memberLastName = memberLastName;
     }
 
     public Long getId() {
@@ -49,12 +49,12 @@ public class Member {
         this.cartPlate = cartPlate;
     }
 
-    public boolean isPremium() {
-        return isPremium;
+    public String getMemberType() {
+        return memberType;
     }
 
-    public void setPremium(boolean premium) {
-        isPremium = premium;
+    public void setMemberType(String memberType) {
+        this.memberType = memberType;
     }
 }
 

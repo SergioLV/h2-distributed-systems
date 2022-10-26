@@ -2,13 +2,13 @@ package com.gremio.receiver.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 public class SaleRequest {
-
     @NotBlank(message = "Cart  id is mandatory")
     private String cartId;
     @NotBlank(message = "Client is Mandatory")
-    private String client;
+    private String clientName;
     @NotNull(message = "Amount is Mandatory")
     private int amount;
     @NotBlank(message = "Date is Mandatory")
@@ -22,6 +22,9 @@ public class SaleRequest {
     @NotNull(message = "Longitude is mandatory")
     private Double longitude;
 
+    @NotNull(message = "Sale Type is mandatory")
+    @Pattern(regexp = "credit|debit", flags = Pattern.Flag.CASE_INSENSITIVE)
+    private String saleType;
 
     public String getCartId() {
         return cartId;
@@ -31,12 +34,12 @@ public class SaleRequest {
         this.cartId = cartId;
     }
 
-    public String getClient() {
-        return client;
+    public String getClientName() {
+        return clientName;
     }
 
-    public void setClient(String client) {
-        this.client = client;
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
     public int getAmount() {
@@ -77,5 +80,13 @@ public class SaleRequest {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getSaleType() {
+        return saleType;
+    }
+
+    public void setSaleType(String saleType) {
+        this.saleType = saleType;
     }
 }

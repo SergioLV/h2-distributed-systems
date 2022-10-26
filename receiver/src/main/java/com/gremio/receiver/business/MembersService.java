@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class MembersService {
 
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(MembersService.class);
     @Autowired
     private KafkaTemplate<String, Member>  memberKafkaTemplate;
 
@@ -20,7 +21,8 @@ public class MembersService {
 
     private void sendToTopic(Member member) {
         try{
-            memberKafkaTemplate.send(Constants.KAFKA_NEW_MEMBERS_TOPIC, member);
+            memberKafkaTemplate.send(Constants.KAFKA_NEW_MEMBERS_TOPIC, member.getMemberType(), member);
+            LOGGER.info("New " + member.getMemberType()  + " member added!. " + member.getEmail());
         } catch(Exception e){
             throw new KafkaException(Constants.PROBLEM_NEW_MEMBERS_TOPIC, e);
         }

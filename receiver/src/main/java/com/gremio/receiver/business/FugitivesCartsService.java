@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class FugitivesCartsService {
 
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(FugitivesCartsService.class);
+
     @Autowired
     private KafkaTemplate<String, FugitiveCart> fugitiveCartKafkaTemplate;
 
@@ -20,7 +22,9 @@ public class FugitivesCartsService {
 
     private void sendToTopic(FugitiveCart fugitiveCart){
         try{
-            fugitiveCartKafkaTemplate.send(Constants.KAFKA_LOCATION_TOPIC, fugitiveCart);
+            fugitiveCart.setIsFugitive("fugitive");
+            fugitiveCartKafkaTemplate.send(Constants.KAFKA_LOCATION_TOPIC, fugitiveCart.getIsFugitive(), fugitiveCart);
+            LOGGER.info("New fugitive cart!. " + fugitiveCart.getCartId());
         } catch(Exception e){
             throw new KafkaException(Constants.PROBLEM_LOCATION_TOPIC, e);
         }

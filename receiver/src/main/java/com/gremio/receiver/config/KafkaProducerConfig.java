@@ -3,6 +3,7 @@ package com.gremio.receiver.config;
 import com.gremio.receiver.dto.FugitiveCartRequest;
 import com.gremio.receiver.dto.MemberRequest;
 import com.gremio.receiver.dto.SaleRequest;
+import com.gremio.receiver.model.CartLocation;
 import com.gremio.receiver.model.FugitiveCart;
 import com.gremio.receiver.model.Member;
 import com.gremio.receiver.model.Sale;
@@ -32,6 +33,7 @@ public class KafkaProducerConfig {
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         return props;
     }
+
     @Autowired
     public ProducerFactory<String, Sale> salesProducerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfig());
@@ -43,6 +45,11 @@ public class KafkaProducerConfig {
     }
     @Autowired
     public ProducerFactory<String, FugitiveCart> fugitiveCartsProducerFactory() {
+        return new DefaultKafkaProducerFactory<>(producerConfig());
+    }
+
+    @Autowired
+    public ProducerFactory<String, CartLocation> standardCartProducerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfig());
     }
 
@@ -61,7 +68,8 @@ public class KafkaProducerConfig {
         return new KafkaTemplate<>(fugitiveCartsProducerFactory());
     }
 
-
-
-
+    @Bean
+    public KafkaTemplate<String, CartLocation> standardCartKafkaTemplate(ProducerFactory<String, CartLocation> standardCartProducerFactory) {
+        return new KafkaTemplate<>(standardCartProducerFactory());
+    }
 }

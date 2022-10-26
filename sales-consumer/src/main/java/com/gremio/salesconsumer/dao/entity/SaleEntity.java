@@ -1,6 +1,6 @@
-package com.gremio.receiver.dao.entity;
+package com.gremio.salesconsumer.dao.entity;
 
-import com.gremio.receiver.model.Sale;
+import com.gremio.salesconsumer.model.Sale;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "sales")
 public class SaleEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

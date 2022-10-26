@@ -2,13 +2,13 @@ package com.gremio.receiver.model;
 
 public class Sale {
     private int cartId;
-    private String client;
+    private String clientName;
     private int amount;
     private String date;
     private int remainingStock;
     private Double latitude;
     private Double longitude;
-
+    private String saleType;
     public int getCartId() {
         return cartId;
     }
@@ -17,12 +17,12 @@ public class Sale {
         this.cartId = cartId;
     }
 
-    public String getClient() {
-        return client;
+    public String getClientName() {
+        return clientName;
     }
 
-    public void setClient(String client) {
-        this.client = client;
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
     public int getAmount() {
@@ -63,5 +63,13 @@ public class Sale {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getSaleType() {
+        return saleType;
+    }
+
+    public void setSaleType(String saleType) {
+        this.saleType = saleType;
     }
 }

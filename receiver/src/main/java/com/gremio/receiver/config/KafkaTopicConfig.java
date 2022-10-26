@@ -10,14 +10,14 @@ import org.springframework.kafka.config.TopicBuilder;
 public class KafkaTopicConfig {
     @Bean
     public NewTopic salesTopic() {
-        return TopicBuilder.name(Constants.KAFKA_SALES_TOPIC).build();
+        return TopicBuilder.name(Constants.KAFKA_SALES_TOPIC).partitions(2).build();
     }
 
     @Bean
-    public NewTopic locationTopic() { return TopicBuilder.name(Constants.KAFKA_NEW_MEMBERS_TOPIC).build(); }
+    public NewTopic locationTopic() { return TopicBuilder.name(Constants.KAFKA_NEW_MEMBERS_TOPIC).partitions(2).build(); }
 
     @Bean
     public NewTopic newMembersTopic() {
-        return TopicBuilder.name(Constants.KAFKA_LOCATION_TOPIC).build();
+        return TopicBuilder.name(Constants.KAFKA_LOCATION_TOPIC).partitions(2).build();
     }
 }
