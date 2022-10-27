@@ -1,10 +1,14 @@
-package com.gremio.receiver.model;
+package com.gremio.receiver.dto;
 
-public class CartLocation {
+import javax.validation.constraints.NotNull;
 
+public class CartLocationRequest {
+    @NotNull(message = "cart id is Mandatory")
     private int cartId;
+    @NotNull(message = "latitude is Mandatory")
     private Double latitude;
 
+    @NotNull(message = "Longitude is Mandatory")
     private Double longitude;
 
     public int getCartId() {
@@ -30,5 +34,4 @@ public class CartLocation {
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
-
 }

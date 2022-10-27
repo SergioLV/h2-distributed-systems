@@ -7,8 +7,6 @@ public class CartLocation {
 
     private Double longitude;
 
-    private String isFugitive;
-
     public int getCartId() {
         return cartId;
     }
@@ -31,13 +29,5 @@ public class CartLocation {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
-    }
-
-    public String getIsFugitive() {
-        return isFugitive;
-    }
-
-    public void setIsFugitive(String isFugitive) {
-        this.isFugitive = isFugitive;
     }
 }

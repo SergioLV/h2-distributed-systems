@@ -21,7 +21,7 @@ public class SaleDAO {
         try {
             SaleEntity saleEntity = new SaleEntity(sale);
             saleJpaRepository.save(saleEntity);
-            List<Integer> s = saleJpaRepository.getDailySales();
+            String aux = "s";
             LOGGER.info("New Sale Added to the Database!");
         }catch (Exception e){
             throw new DatabaseException(Constants.PROBLEM_SALES_TABLE, e);

@@ -21,7 +21,8 @@ public class MembersService {
 
     private void sendToTopic(Member member) {
         try{
-            memberKafkaTemplate.send(Constants.KAFKA_NEW_MEMBERS_TOPIC, member.getMemberType(), member);
+            int partition = member.getMemberType().equals("premium") ? 0 : 1;
+            memberKafkaTemplate.send(Constants.KAFKA_NEW_MEMBERS_TOPIC, partition, member.getMemberType(), member);
             LOGGER.info("New " + member.getMemberType()  + " member added!. " + member.getEmail());
         } catch(Exception e){
             throw new KafkaException(Constants.PROBLEM_NEW_MEMBERS_TOPIC, e);

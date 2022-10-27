@@ -1,16 +1,17 @@
-package com.gremio.salesconsumer.model;
+package com.gremio.receiver.model;
 
-public class Stock {
+public class CartStock {
     private int cartId;
     private int remainingStock;
 
-    public int getCartId() {
-        return cartId;
-    }
 
-    public Stock(int cartId, int remainingStock) {
+    public CartStock(int cartId, int remainingStock) {
         this.cartId = cartId;
         this.remainingStock = remainingStock;
+    }
+
+    public int getCartId() {
+        return cartId;
     }
 
     public void setCartId(int cartId) {

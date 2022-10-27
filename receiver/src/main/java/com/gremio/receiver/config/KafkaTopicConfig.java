@@ -14,6 +14,11 @@ public class KafkaTopicConfig {
     }
 
     @Bean
+    public NewTopic stocksTopic() {
+        return TopicBuilder.name(Constants.KAFKA_STOCKS_TOPIC).partitions(2).build();
+    }
+
+    @Bean
     public NewTopic locationTopic() { return TopicBuilder.name(Constants.KAFKA_NEW_MEMBERS_TOPIC).partitions(2).build(); }
 
     @Bean

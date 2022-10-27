@@ -1,12 +1,6 @@
 package com.gremio.receiver.config;
 
-import com.gremio.receiver.dto.FugitiveCartRequest;
-import com.gremio.receiver.dto.MemberRequest;
-import com.gremio.receiver.dto.SaleRequest;
-import com.gremio.receiver.model.CartLocation;
-import com.gremio.receiver.model.FugitiveCart;
-import com.gremio.receiver.model.Member;
-import com.gremio.receiver.model.Sale;
+import com.gremio.receiver.model.*;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +34,11 @@ public class KafkaProducerConfig {
     }
 
     @Autowired
+    public ProducerFactory<String, CartStock> stockProducerFactory() {
+        return new DefaultKafkaProducerFactory<>(producerConfig());
+    }
+
+    @Autowired
     public ProducerFactory<String, Member> membersProducerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfig());
     }
@@ -56,6 +55,11 @@ public class KafkaProducerConfig {
     @Bean
     public KafkaTemplate<String, Sale> salesKafkaTemplate(ProducerFactory<String, Sale> salesProducerFactory) {
         return new KafkaTemplate<>(salesProducerFactory());
+    }
+
+    @Bean
+    public KafkaTemplate<String, CartStock> stockKafkaTemplate(ProducerFactory<String, CartStock> stockProducerFactory) {
+        return new KafkaTemplate<>(stockProducerFactory());
     }
 
     @Bean

@@ -1,11 +1,14 @@
 package com.gremio.receiver.service.api.controller;
 
+import com.gremio.receiver.business.CartLocationService;
 import com.gremio.receiver.business.FugitivesCartsService;
 import com.gremio.receiver.business.MembersService;
 import com.gremio.receiver.business.SalesService;
+import com.gremio.receiver.dto.CartLocationRequest;
 import com.gremio.receiver.dto.FugitiveCartRequest;
 import com.gremio.receiver.dto.MemberRequest;
 import com.gremio.receiver.dto.SaleRequest;
+import com.gremio.receiver.model.CartLocation;
 import com.gremio.receiver.model.FugitiveCart;
 import com.gremio.receiver.model.Member;
 import com.gremio.receiver.model.Sale;
@@ -32,6 +35,9 @@ public class ReceiverController {
     private FugitivesCartsService fugitivesCartsService;
 
     @Autowired
+    private CartLocationService cartLocationService;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @PostMapping(value="/sale")
@@ -46,6 +52,13 @@ public class ReceiverController {
         Member member = modelMapper.map(request, Member.class);
         membersService.send(member);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(new DefaultResponse("New Member added!", Calendar.getInstance().getTimeInMillis()));
+    }
+
+    @PostMapping(value="/location")
+    public ResponseEntity<DefaultResponse> location(@RequestBody @Valid CartLocationRequest request){
+        CartLocation cartLocation = modelMapper.map(request, CartLocation.class);
+        cartLocationService.send(cartLocation);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new DefaultResponse("New location updated!", Calendar.getInstance().getTimeInMillis()));
     }
 
     @PostMapping(value="/fugitive-cart")

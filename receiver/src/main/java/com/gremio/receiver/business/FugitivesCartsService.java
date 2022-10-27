@@ -22,8 +22,7 @@ public class FugitivesCartsService {
 
     private void sendToTopic(FugitiveCart fugitiveCart){
         try{
-            fugitiveCart.setIsFugitive("fugitive");
-            fugitiveCartKafkaTemplate.send(Constants.KAFKA_LOCATION_TOPIC, fugitiveCart.getIsFugitive(), fugitiveCart);
+            fugitiveCartKafkaTemplate.send(Constants.KAFKA_LOCATION_TOPIC, 1, "fugitive", fugitiveCart);
             LOGGER.info("New fugitive cart!. " + fugitiveCart.getCartId());
         } catch(Exception e){
             throw new KafkaException(Constants.PROBLEM_LOCATION_TOPIC, e);

@@ -16,6 +16,6 @@ public class MemberListener {
     void listener(String JsonSale) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         Member member = objectMapper.readValue(JsonSale, Member.class);
-        LOGGER.info("Nuevo miembro! " + member.getMemberName() + " " + member.getMemberLastName() );
+        LOGGER.info("Nuevo miembro! " + member.getMemberName() + " " + member.getMemberLastName());
     }
 }

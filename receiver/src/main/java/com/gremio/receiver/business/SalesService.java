@@ -1,6 +1,7 @@
 package com.gremio.receiver.business;
 
 import com.gremio.receiver.model.CartLocation;
+import com.gremio.receiver.model.CartStock;
 import com.gremio.receiver.model.FugitiveCart;
 import com.gremio.receiver.model.Sale;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,29 +18,30 @@ public class SalesService {
     private KafkaTemplate<String, Sale> salesKafkaTemplate;
 
     @Autowired
-    private KafkaTemplate<String, CartLocation> cartLocationKafkaTemplate;
+    private KafkaTemplate<String, CartStock> cartStockKafkaTemplate;
 
 
     @Transactional
     public void send(Sale sale)  {
         sendToSalesTopic(sale);
-        sendToLocationTopic(sale);
+        sendToStockTopic(sale);
     }
 
     private void sendToSalesTopic(Sale sale){
         try{
-            salesKafkaTemplate.send(Constants.KAFKA_SALES_TOPIC, sale.getSaleType(), sale);
+            int partition = sale.getSaleType().equals("credit") ? 0 : 1;
+            salesKafkaTemplate.send(Constants.KAFKA_SALES_TOPIC, partition, sale.getSaleType(), sale);
             LOGGER.info("New " + sale.getSaleType() + " sale added!. " + sale.getClientName());
         } catch(Exception e){
             throw new KafkaException(Constants.PROBLEM_SALES_TOPIC, e);
         }
     }
 
-    private void sendToLocationTopic(Sale sale){
+    private void sendToStockTopic(Sale sale){
         try{
-            CartLocation cartLocation = new CartLocation(sale.getCartId(), sale.getLatitude(), sale.getLongitude(), "standard");
-            cartLocationKafkaTemplate.send(Constants.KAFKA_LOCATION_TOPIC, cartLocation.getIsFugitive(), cartLocation);
-            LOGGER.info("New " + cartLocation.getIsFugitive() + "cart!");
+            CartStock cartStock = new CartStock(sale.getCartId(), sale.getRemainingStock());
+            cartStockKafkaTemplate.send(Constants.KAFKA_STOCKS_TOPIC, cartStock);
+            LOGGER.info("Stock of cart " + String.valueOf(cartStock.getCartId()) + " updated. Remaining: " + String.valueOf(cartStock.getRemainingStock()) );
         } catch(Exception e){
             throw new KafkaException(Constants.PROBLEM_SALES_TOPIC, e);
         }

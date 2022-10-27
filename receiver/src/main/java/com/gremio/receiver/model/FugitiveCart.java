@@ -8,8 +8,6 @@ public class FugitiveCart  {
 
     private Double longitude;
 
-    private String isFugitive;
-
     public int getCartId() {
         return cartId;
     }
@@ -34,11 +32,4 @@ public class FugitiveCart  {
         this.longitude = longitude;
     }
 
-    public String getIsFugitive() {
-        return isFugitive;
-    }
-
-    public void setIsFugitive(String isFugitive) {
-        this.isFugitive = isFugitive;
-    }
 }
